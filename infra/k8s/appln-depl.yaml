@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appln-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appln
+  template:
+    metadata:
+      labels:
+        app: appln
+    spec:
+      containers:
+        - name: appln
+          image: ranjithdurai89/appln
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appln-clusterip-srv
+spec:
+  selector:
+    app: appln
+  ports:
+    - name: appln
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
